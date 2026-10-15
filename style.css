@@ -1,0 +1,345 @@
+/* ==========================================================================
+   Variables y Configuración Global
+   ========================================================================== */
+:root {
+    --primary-gradient: linear-gradient(135deg, #7928CA 0%, #FF0080 100%);
+    --secondary-gradient: linear-gradient(135deg, #4F46E5 0%, #06B6D4 100%);
+    --accent-color: #FF0080;
+    --bg-dark: #0f172a;
+    --bg-card: rgba(255, 255, 255, 0.85);
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --shadow-soft: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+    --shadow-glow: 0 0 25px rgba(255, 0, 128, 0.35);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Reset y Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: var(--text-primary);
+    background-color: #f8fafc;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ==========================================================================
+   Encabezado (Glassmorphism Sticky Header)
+   ========================================================================== */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+    transition: var(--transition);
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 0;
+}
+
+.logo {
+    font-size: 1.4rem;
+    font-weight: 800;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.5px;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--text-secondary);
+    margin-left: 1.8rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: var(--transition);
+    position: relative;
+}
+
+nav a:not(.btn-nav):hover {
+    color: var(--accent-color);
+}
+
+nav a:not(.btn-nav)::after {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background: var(--primary-gradient);
+    transition: var(--transition);
+    border-radius: 2px;
+}
+
+nav a:not(.btn-nav):hover::after {
+    width: 100%;
+}
+
+.btn-nav {
+    background: var(--primary-gradient);
+    color: #fff !important;
+    padding: 0.6rem 1.4rem;
+    border-radius: 30px;
+    box-shadow: 0 4px 15px rgba(255, 0, 128, 0.2);
+}
+
+.btn-nav:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow);
+}
+
+/* ==========================================================================
+   Sección Principal (Hero Section con Gradientes Dinámicos)
+   ========================================================================== */
+.hero {
+    position: relative;
+    padding: 8rem 0 6rem 0;
+    background: radial-gradient(circle at 50% 10%, #1e1b4b 0%, #0f172a 100%);
+    color: #fff;
+    text-align: center;
+    overflow: hidden;
+}
+
+/* Fondo con efecto de luz difusa */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(255,0,128,0.25) 0%, rgba(121,40,202,0.15) 50%, transparent 70%);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    animation: fadeInUp 1s ease-out;
+}
+
+.hero-content h2 {
+    font-size: 3.2rem;
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 1.2rem;
+    letter-spacing: -1px;
+    background: linear-gradient(180deg, #FFFFFF 0%, #CBD5E1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    max-width: 720px;
+    margin: 0 auto 2.5rem auto;
+    color: #94a3b8;
+    font-weight: 400;
+}
+
+/* Botón CTA con efecto Glow / Pulso */
+.cta-button {
+    display: inline-block;
+    background: var(--primary-gradient);
+    color: #fff;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: 0.5px;
+    box-shadow: var(--shadow-glow);
+    transition: var(--transition);
+    animation: pulse 3s infinite;
+}
+
+.cta-button:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 0 35px rgba(255, 0, 128, 0.6);
+}
+
+/* ==========================================================================
+   Sección de Características (Tarjetas Interactivas)
+   ========================================================================== */
+.features {
+    padding: 6rem 0;
+    background-color: #f8fafc;
+}
+
+.features h3 {
+    text-align: center;
+    font-size: 2.3rem;
+    font-weight: 800;
+    margin-bottom: 3.5rem;
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+}
+
+.card {
+    background: #ffffff;
+    padding: 2.5rem;
+    border-radius: 20px;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    box-shadow: var(--shadow-soft);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: var(--secondary-gradient);
+    transition: var(--transition);
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.12);
+    border-color: rgba(79, 70, 229, 0.3);
+}
+
+.card:hover::before {
+    height: 8px;
+    background: var(--primary-gradient);
+}
+
+.card h4 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.card p {
+    color: var(--text-secondary);
+    font-size: 0.98rem;
+    line-height: 1.7;
+}
+
+/* ==========================================================================
+   Pie de página (Footer)
+   ========================================================================== */
+.footer {
+    background: #0f172a;
+    color: #64748b;
+    text-align: center;
+    padding: 2.5rem 0;
+    font-size: 0.95rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer p {
+    color: #94a3b8;
+}
+
+/* ==========================================================================
+   Estilos Especiales para la Página de Error 404
+   ========================================================================== */
+.error-body {
+    background: #0f172a;
+}
+
+.error-body .hero-content h2 {
+    font-size: 7rem;
+    font-weight: 900;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+}
+
+.error-body .hero-content h3 {
+    font-size: 2rem;
+    color: #ffffff;
+    margin-bottom: 1rem;
+}
+
+/* ==========================================================================
+   Keyframes y Animaciones
+   ========================================================================== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 0, 128, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 18px rgba(255, 0, 128, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 0, 128, 0);
+    }
+}
+
+/* ==========================================================================
+   Diseño Adaptable (Responsive Media Queries)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .header .container {
+        flex-direction: column;
+        gap: 1.2rem;
+    }
+
+    nav a {
+        margin: 0 0.8rem;
+    }
+
+    .hero {
+        padding: 6rem 0 4rem 0;
+    }
+
+    .hero-content h2 {
+        font-size: 2.2rem;
+    }
+
+    .hero-content p {
+        font-size: 1.05rem;
+    }
+
+    .error-body .hero-content h2 {
+        font-size: 5rem;
+    }
+}
